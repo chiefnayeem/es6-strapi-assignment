@@ -60,11 +60,9 @@
       "configurable": false
     },
     "comments": {
-      "collection": "comment",
-      "via": "user"
+      "collection": "comment"
     },
     "posts": {
-      "via": "user",
       "collection": "post"
     }
   }

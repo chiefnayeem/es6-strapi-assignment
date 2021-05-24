@@ -9,8 +9,16 @@
  */
 
 import {Model} from "./model.js";
-import {listPostsView, listMostLikedPosts, listAllPostsView, drawSinglePost, drawIsLoggedIn} from "./views.js";
-import {router} from "./Router.js";
+import {
+    listPostsView,
+    listMostLikedPosts,
+    listAllPostsView,
+    listMyPostsView,
+    drawSinglePost,
+    drawIsLoggedIn,
+    drawLoginError
+} from "./views.js";
+import {router} from "./router.js";
 import {Auth} from "./service.js";
 
 function redraw() {
@@ -33,9 +41,16 @@ window.onload = function () {
     Model.getRecentPosts();
     Model.getPopularPosts();
     Model.getMostLikedPosts();
+    if (Auth.isLoggedIn()) {
+        Model.getUserPosts(Auth.getAuthUser() !== null ? Auth.getAuthUser().user.id : 0);
+    }
 
     document.addEventListener('allPostsFetched', () => {
         listAllPostsView(document.getElementById('all-posts'), Model.data.posts);
+    }, false);
+
+    document.addEventListener('myPostsFetched', () => {
+        listMyPostsView(document.getElementById('my-posts'), Model.data.userPosts);
     }, false);
 
     document.addEventListener('mostLikedPostsFetched', () => {
@@ -67,9 +82,12 @@ window.onload = function () {
     document.addEventListener('loggedIn', () => {
         drawIsLoggedIn(document.getElementById('loginForm'));
     }, false);
+    document.addEventListener('loginError', () => {
+        drawLoginError();
+    }, false);
 
     //login submit handler
-    if(typeof document.forms['LoginForm'] !== 'undefined') {
+    if (typeof document.forms['LoginForm'] !== 'undefined') {
         document.forms['LoginForm'].addEventListener('submit', (e) => {
             e.preventDefault();
             const identifier = document.forms['LoginForm']['username'].value,
@@ -89,3 +107,17 @@ window.onload = function () {
 };
 
 
+export function initializeCommentSubmitAction() {
+    document.getElementById('commentform').addEventListener('click', function (e) {
+        e.preventDefault();
+        const c_content = document.querySelector('#commentform [name="c_content"]').value;
+        const post_id = document.querySelector('#commentform [name="post_id"]').value;
+
+        if(c_content.toString().trim() !== '') {
+            Model.addComment({
+                post_id,
+                c_content,
+            });
+        }
+    });
+}

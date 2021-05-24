@@ -23,12 +23,14 @@ import {Auth} from "./service.js";
 
 const Model = {
     postsUrl: api_url + '/posts',
+    userUrl: api_url + '/users',
     uploadUrl: api_url + '/upload',
     commentsUrl: api_url + '/comments',
 
     //this will hold the post data stored in the model
     data: {
         posts: [],
+        userPosts: [],
         recentPosts: [],
         popularPosts: [],
         mostLikedPosts: [],
@@ -52,7 +54,7 @@ const Model = {
             document.dispatchEvent(event);
         }).catch((error) => {
             console.log(error);
-        })
+        });
     },
 
     // getPost - return a single post given its id
@@ -84,7 +86,22 @@ const Model = {
 
     // getUserPosts - return just the posts for one user as an array
     getUserPosts: function (userid) {
-
+        fetch(api_url + `/users/${userid}`, {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${Auth.getAuthUser().jwt}`
+            }
+        }).then(response => {
+            return response.json();
+        }).then(res => {
+            this.data.userPosts = res.posts;
+            let event = new CustomEvent('myPostsFetched');
+            document.dispatchEvent(event);
+        }).catch((error) => {
+            console.log(error);
+        });
     },
 
     // addLike - increase the number of likes by 1 
@@ -96,7 +113,6 @@ const Model = {
             method: "PUT", headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${Auth.getAuthUser().jwt}`,
             }, body: JSON.stringify({p_likes: Number(prevLikeNumber) + 1})
         }).then(res => res.json()).then(data => {
             let event = new CustomEvent('likeAdded');
@@ -110,6 +126,29 @@ const Model = {
     //      commentData is an object containing the content of the comment, the author and the postid
     // when the request is resolved, creates an "commentAdded" event
     addComment: function (commentData) {
+        fetch(`${api_url}/comments`, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${Auth.getAuthUser().jwt}`
+            },
+            body: JSON.stringify({
+                c_author: Auth.getAuthUser().user.id,
+                c_post: Number(commentData.post_id),
+                c_content: commentData.c_content,
+            })
+        }).then(response => {
+            return response.json();
+        }).then(res => {
+            let event = new CustomEvent('commentAdded');
+            document.dispatchEvent(event);
+        }).catch((error) => {
+            console.log(error);
+        });
+    },
+
+    getComments: function(post_id) {
 
     },
 

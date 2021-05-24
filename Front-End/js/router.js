@@ -19,14 +19,26 @@ export const router = {
 
                 return;
             }
+
+            if(hash === "/all-posts") {
+                document.getElementById('all-posts-page').style.display = "block";
+
+                return;
+            }
+
+            if(hash === "/my-posts") {
+                document.getElementById('my-posts-page').style.display = "block";
+
+                return;
+            }
         }
 
         if(currentRoute === "/") {
             document.getElementById('home-page').style.display = "block";
         }
 
-        if(currentRoute === "/all-posts") {
-            document.getElementById('all-posts-page').style.display = "block";
-        }
+        /*if(currentRoute === "/my-posts") {
+            document.getElementById('my-posts-page').style.display = "block";
+        }*/
     }
 }

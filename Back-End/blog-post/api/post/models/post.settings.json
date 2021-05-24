@@ -28,19 +28,15 @@
       "type": "richtext"
     },
     "p_likes": {
-      "type": "integer"
+      "type": "biginteger",
+      "default": "0"
     },
-    "p_url": {
-      "type": "string"
-    },
-    "user": {
-      "via": "posts",
+    "p_author": {
       "plugin": "users-permissions",
       "model": "user"
     },
-    "comments": {
-      "collection": "comment",
-      "via": "post"
+    "p_comments": {
+      "collection": "comment"
     }
   }
 }

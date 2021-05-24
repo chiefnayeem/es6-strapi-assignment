@@ -23,12 +23,14 @@
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/all-posts">All Posts</a></li>
-            <li><a href="/">My Posts</a></li>
+            <li><a href="/#!/all-posts">All Posts</a></li>
+            <li><a href="/#!/my-posts">My Posts</a></li>
             <li><a href="#whatis">About</a></li>
         </ul>
     </nav>
 </header>
+
+<div style="margin: 10px; text-align: right; display: none;" id="myUsername">username</div>
 
 <div id="content">
     <div id="heading">
@@ -85,6 +87,13 @@
         <h2 class="title">All Posts</h2>
 
         <div class="posts" id="all-posts"></div>
+    </div>
+
+    <!-- My Posts Page -->
+    <div role="page" id="my-posts-page" class="page-all-posts">
+        <h2 class="title">My Posts</h2>
+
+        <div class="posts" id="my-posts"></div>
     </div>
 
     <!-- Single post page -->

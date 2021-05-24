@@ -34,6 +34,8 @@ const Auth = {
                 document.dispatchEvent(event);
             } else {
                 localStorage.removeItem('__auth_userData');
+                let event = new CustomEvent('loginError');
+                document.dispatchEvent(event);
             }
         });
     },
