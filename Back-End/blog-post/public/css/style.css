@@ -1,0 +1,350 @@
+/* sample spreadshet - you should replace all of this! */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 100px;
+    font-family: 'Muli', sans-serif;
+}
+
+ul li{
+    list-style-type: none;
+}
+
+header {
+    width: 100%;
+    background-color: coral;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0px 15px;
+    text-align: center;
+}
+
+header nav ul li{
+    display: inline-block;
+}
+header nav ul li a{
+    display: inline-block;
+    color: #fff;
+    padding: 10px 15px;
+    text-decoration: none;
+}
+
+header nav ul li:hover a{
+    background: #fff;
+    color: #000;
+    transition: 0.5s;
+}
+
+label{
+    color:#fff;
+    margin-right: 5px;
+}
+
+.form-input{
+    /* float: left; */
+    display: flex;
+}
+
+button#search-button{
+    float: right;
+    display: inline-block;
+    background: crimson;
+    color: #fff;
+    padding: 4px;
+    margin: 0;
+    border:none;
+    outline: none;
+    border-radius: 0 2px 2px 0;
+}
+
+#heading {
+    background-color: gainsboro;
+    padding: 10px 15px;
+    width: 100%;
+    text-align: center;
+}
+
+#heading hgroup{
+    text-align: center;
+}
+
+#heading hgroup h1{
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+#heading hgroup h2{
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.flowtow{
+    display: inline-block;
+    background: #fff;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    max-width: 200px;
+    width: 100%;
+}
+
+.flowtow ul li{
+    list-style-type: none;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 200;
+    margin-bottom: 5px;
+    color: #575D7E;
+}
+
+.flowtow ul li img{
+    width: 100% !important;
+    height: 120px;
+}
+
+button.like-button{
+    display: inline-block;
+    border: none;
+    padding: 2px 5px;
+    background: #2875b0;
+    color: #fff;
+    border-radius: 2px;
+    float: left;
+    margin-top: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+button.like-button:hover{
+    background: #0086ed;
+    transition: 0.5s;
+}
+
+form#search-form .form-input input{
+    background: #ecf0f1;
+    border: none;
+    outline: none;
+    border-radius: 2px 0 0 2px;
+    font-size: 12px;
+    font-weight: 200;
+    padding: 5px 0;
+    margin: 0;
+}
+
+#whatis {
+    width: 50%;
+    background-color: forestgreen;
+    border: 10px solid orchid;
+    display: inline-block;
+    height: 195px;
+    padding: 20px;
+}
+
+#whatis h2, #registration  h2{
+    font-size:24px;
+    margin-bottom: 10px;
+}
+
+#whatis p, #registration  p{
+    font-size: 14px;
+}
+
+form#loginForm{
+    margin-top: 15px;
+}
+
+form#loginForm .form-input{
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+#loginForm {
+    width: 50%;
+    margin: 0;
+    background-color: rosybrown;
+    float: right;
+    padding: 20px;
+    height: 195px;
+}
+
+#recent-users{
+    padding: 10px 0;
+    text-align: center;
+}
+
+#recent-users h2, p{
+    margin-bottom: 10px;
+}
+
+ul#recent-user-list{
+    list-style-type: none;
+}
+
+ul#recent-user-list li{
+    list-style-type: none;
+    font-size: 14px;
+    font-weight: 200;
+    margin-bottom: 5px;
+
+}
+
+ul#recent-user-list li a{
+    color: #575D7E;
+    text-decoration: none;
+}
+
+footer {
+    background-color: #e2db00;
+    padding: 10px;
+}
+
+p#copyright{
+    margin: 0;
+}
+
+#social, ul.footer-tos{
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-right: 25px;
+}
+
+
+ul.footer-tos li a, #social ul li a{
+    color: #575D7E;
+    text-decoration: none;
+    margin-bottom: 10px;
+
+}
+
+@media only screen and (max-width: 991px){
+    #whatis, #registration{
+        width: 100%;
+    }
+
+    header{
+        display: block;
+    }
+
+    header nav ul li{
+        display: block;
+        text-align: center;
+    }
+
+    form#search-form{
+        padding-bottom: 10px;
+    }
+
+    form#search-form >.form-input{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+
+/**
+ * new custom styles
+ */
+[role="page"] {
+    display: none;
+}
+
+
+
+.col-container {
+    display: flex;
+}
+.col-half {
+    display: block;
+    width: 50%;
+    margin: 10px;
+}
+.posts-container {
+    height: 300px;
+    border: 1px solid #a6a6a6;
+    overflow: auto;
+}
+.posts-container .title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+}
+
+.posts-table {
+    width: 100%;
+    border: 0;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.posts-table td {
+    border: 0;
+    border-bottom: 1px solid #a6a6a6;
+    padding: 10px;
+}
+
+.posts-table td .thumbnail {
+    width: 100px;
+}
+
+.page-all-posts {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.page-all-posts h2.title {
+    text-align: center;
+}
+
+.page-all-posts .post {
+    border: 1px solid #a6a6a6;
+}
+
+.page-all-posts .post .info {
+    display: inline-block;
+    width: 300px;
+    font-size: 14px;
+}
+
+.page-all-posts .post .info img {
+    width: 100%;
+}
+
+.page-all-posts .post .comments {
+    display: inline-block;
+    margin-left: 30px;
+}
+
+
+/**
+ * Single post page
+ */
+.page-single-post {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.page-single-post .single-post {
+    border: 1px solid #a6a6a6;
+    padding: 10px;
+    width: 400px;
+}
+.page-single-post .single-post img {
+    width: 100%;
+}
+.comment-composer input {
+    width: 100%;
+    padding: 5px;
+}
+
+.comment-composer button {
+    width: 100%;
+    padding: 4px;
+}

@@ -1,0 +1,106 @@
+<!--
+  Student Name:
+  Student Number:
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FlowTow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css" type="text/css">
+
+    <!-- Include Handlebars from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="./js/main.js" type=module defer></script>
+</head>
+<body>
+
+<header>
+    <div id="logo"></div>
+
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/#!/all-posts">All Posts</a></li>
+            <li><a href="/#!/my-posts">My Posts</a></li>
+            <li><a href="#whatis">About</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div style="margin: 10px; text-align: right; display: none;" id="myUsername">username</div>
+
+<div id="content">
+    <div id="heading">
+        <hgroup>
+            <h1>Welcome to FlowTow!</h1>
+        </hgroup>
+    </div>
+
+
+    <!-- Home Page -->
+    <div role="page" id="home-page">
+        <div style="text-align: center">
+            <div id="most-liked-posts"></div>
+        </div>
+
+
+        <div class="col-container">
+            <div class="col-half">
+                <div class="posts-container">
+                    <div class="title">Recent Posts</div>
+
+                    <table class="posts-table" border="1">
+                        <tbody id="recent-posts"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-half">
+                <div class="posts-container">
+                    <div class="title">Popular Posts</div>
+
+                    <table class="posts-table" border="1">
+                        <tbody id="popular-posts"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <a name="whatis">
+            <div id="whatis">
+                <h2>What is FlowTow?</h2>
+                <p>FlowTow is a new, exciting, photo sharing service like nothing you've seen before!</p>
+                <p>FlowTow will support logging in users, posting images, making comments and viewing images in various
+                    ways.</p>
+            </div>
+        </a>
+
+        <div id="loginForm"></div>
+    </div>
+
+    <!-- All Posts Page -->
+    <div role="page" id="all-posts-page" class="page-all-posts">
+        <h2 class="title">All Posts</h2>
+
+        <div class="posts" id="all-posts"></div>
+    </div>
+
+    <!-- My Posts Page -->
+    <div role="page" id="my-posts-page" class="page-all-posts">
+        <h2 class="title">My Posts</h2>
+
+        <div class="posts" id="my-posts"></div>
+    </div>
+
+    <!-- Single post page -->
+    <div role="page" id="single-post-page" class="page-single-post" style="display: none !important;">
+        <div class="single-post" id="single-post-container"></div>
+    </div>
+
+</div>
+</body>
+</html>
