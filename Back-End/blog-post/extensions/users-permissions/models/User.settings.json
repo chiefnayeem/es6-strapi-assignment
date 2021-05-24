@@ -63,6 +63,7 @@
       "collection": "comment"
     },
     "posts": {
+      "via": "p_author",
       "collection": "post"
     }
   }

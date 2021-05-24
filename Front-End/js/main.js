@@ -69,6 +69,7 @@ window.onload = function () {
         drawSinglePost(document.getElementById('single-post-container'), Model.data.singlePost);
     }, false);
 
+
     document.addEventListener('likeAdded', () => {
         Model.getPosts();
         Model.getRecentPosts();
@@ -117,6 +118,22 @@ export function initializeCommentSubmitAction() {
             Model.addComment({
                 post_id,
                 c_content,
+            });
+        }
+    });
+}
+
+
+export function initializePostSubmitAction() {
+    document.getElementById('postform').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const p_url = document.querySelector('#postform [name="p_url"]').value;
+        const p_caption = document.querySelector('#postform [name="p_caption"]').value;
+
+        if(p_url.toString().trim() !== '' && p_caption.toString().trim() !== '') {
+            Model.addPost({
+                p_url,
+                p_caption,
             });
         }
     });

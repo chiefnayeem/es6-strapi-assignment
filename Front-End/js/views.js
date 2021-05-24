@@ -12,7 +12,7 @@ import {formatDate} from "./util.js";
 import {api_url} from "./config.js";
 import {Auth} from "./service.js";
 import {Model} from "./model.js";
-import {initializeCommentSubmitAction} from './main.js';
+import {initializeCommentSubmitAction, initializePostSubmitAction} from './main.js';
 
 export function listAllPostsView(target, posts) {
     if (posts.length > 0) {
@@ -49,9 +49,22 @@ export function listMyPostsView(target, posts) {
     let __html = '';
 
     if (Auth.isLoggedIn()) {
+
+        __html += `
+            <div>
+                <form id="postform">
+                    <input placeholder="Enter url here" name="p_url" />
+                    <input placeholder="Enter Caption" name="p_caption" />
+                    <button>Create a post</button>
+                </form>
+            </div>
+        `;
+
+
         if (posts.length > 0) {
             for (let i = 0; i < posts.length; i++) {
                 const post = posts[i];
+                console.log(post)
                 let __comment_html = '';
 
                 if (typeof post.p_comments !== "undefined") {
@@ -64,7 +77,7 @@ export function listMyPostsView(target, posts) {
                 <div class="info">
                     <img class="thumbnail" alt="Post thumbnail" src="${post.p_image !== null ? api_url + post.p_image.url : ''}"/>
                     <div>
-                        <i>${post.p_caption} by ${post.user.username} - ${formatDate(post.published_at, 'dd-mm-yyyy')}</i>
+                        <i>${post.p_caption} by ${Auth.getAuthUser().user.username} - ${formatDate(post.published_at, 'dd-mm-yyyy')}</i>
                     </div>
                 </div>
                 <div class="comments">
@@ -81,6 +94,12 @@ export function listMyPostsView(target, posts) {
     }
 
     target.innerHTML = __html;
+
+    if(Auth.isLoggedIn()) {
+        setTimeout(() => {
+            initializePostSubmitAction();
+        }, 1);
+    }
 }
 
 export function listPostsView(target, posts) {
@@ -151,11 +170,12 @@ export function drawSinglePost(target, post) {
     if (post !== null) {
         let __comments_html = '';
 
-        for (let i = 0; i < post.p_comments.length; i++) {
+        for (let i = post.p_comments.length - 1; i >= 0; i--) {
             __comments_html += `<li style="padding: 3px;">>> ${post.p_comments[i].c_content}</li>`;
         }
 
-        target.innerHTML = `<img src="${api_url + post.p_image.url}"/>
+        let __html = '';
+        __html = `<img src="${api_url + post.p_image.url}"/>
             <h3 align="center">
                 ${post.p_caption}
             </h3>
@@ -169,9 +189,11 @@ export function drawSinglePost(target, post) {
             <br/>
 
             <ul>${__comments_html}</ul>
+            `;
 
-            <br/>
 
+        if(Auth.isLoggedIn()) {
+            __html += `<br/>
             <div class="comment-composer">
                 <label>
                     <form id="commentform" onsubmit="return false;">
@@ -186,13 +208,19 @@ export function drawSinglePost(target, post) {
                             </td>
                         </tr>
                     </table>
-</form>
+                    </form>
                 </label>
             </div>`;
+        }
+
+        target.innerHTML = __html;
+
+        setTimeout(() => {
+            if(Auth.isLoggedIn()) {
+                initializeCommentSubmitAction();
+            }
+        }, 1);
     }
-
-
-    initializeCommentSubmitAction();
 }
 
 

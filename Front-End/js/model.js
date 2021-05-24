@@ -81,7 +81,26 @@ const Model = {
     // postData is an object containing all fields in the post object (e.g., p_caption)
     // when the request is resolved, creates an "postAdded" event
     addPost: function (postData) {
-
+        fetch(`${api_url}/posts`, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${Auth.getAuthUser().jwt}`
+            },
+            body: JSON.stringify({
+                p_author: Auth.getAuthUser().user.id,
+                p_url: postData.p_url,
+                p_caption: postData.p_caption,
+            })
+        }).then(response => {
+            return response.json();
+        }).then(res => {
+            let event = new CustomEvent('postCreated');
+            document.dispatchEvent(event);
+        }).catch((error) => {
+            console.log(error);
+        });
     },
 
     // getUserPosts - return just the posts for one user as an array
@@ -141,15 +160,10 @@ const Model = {
         }).then(response => {
             return response.json();
         }).then(res => {
-            let event = new CustomEvent('commentAdded');
-            document.dispatchEvent(event);
+            this.getPost(commentData.post_id);
         }).catch((error) => {
             console.log(error);
         });
-    },
-
-    getComments: function(post_id) {
-
     },
 
     //getRandomPosts - return N random posts as an array

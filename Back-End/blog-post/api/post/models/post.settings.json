@@ -31,12 +31,17 @@
       "type": "biginteger",
       "default": "0"
     },
+    "p_comments": {
+      "collection": "comment",
+      "via": "c_post"
+    },
     "p_author": {
+      "via": "posts",
       "plugin": "users-permissions",
       "model": "user"
     },
-    "p_comments": {
-      "collection": "comment"
+    "p_url": {
+      "type": "string"
     }
   }
 }
